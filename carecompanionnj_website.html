@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareCompanionNJ | NJMU Medical Student Hospital Escort</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.tailwind) {
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            fontFamily: {
+                                sans: ['Inter', 'sans-serif'],
+                            },
+                            colors: {
+                                medical: {
+                                    50: '#f0f9ff',
+                                    100: '#e0f2fe',
+                                    200: '#bae6fd',
+                                    500: '#0284c7',
+                                    600: '#0369a1',
+                                    700: '#075985',
+                                    800: '#0c4a6e',
+                                    900: '#075985',
+                                },
+                                tealAccent: {
+                                    50: '#f0fdf4',
+                                    500: '#10b981',
+                                    600: '#059669',
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+        });
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-medical-800 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        <i class="fa-solid fa-graduation-cap mr-2 text-teal-300"></i>
+        <span data-i18n="topBarText">Matched with medical student companions from <strong>Nanjing Medical University (NJMU)</strong>.</span>
+        <a href="#calculator" class="underline hover:text-teal-200 ml-2 font-semibold" data-i18n="topBarLink">Book 3-7 Days Ahead →</a>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-medical-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-medical-500/20">
+                    <i class="fa-solid fa-user-doctor text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 block leading-tight">CareCompanion<span class="text-medical-600">NJ</span></span>
+                    <span class="text-[10px] text-slate-500 block -mt-1 font-medium tracking-wide">NJMU STUDENT HOSPITAL ESCORT</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-medical-600 transition-colors" data-i18n="navAbout">About Us</a>
+                <a href="#how-it-works" class="hover:text-medical-600 transition-colors" data-i18n="navHow">How It Works</a>
+                <a href="#founder" class="hover:text-medical-600 transition-colors" data-i18n="navFounder">Founder Profile</a>
+                <a href="#calculator" class="hover:text-medical-600 transition-colors" data-i18n="navBook">Book Escort</a>
+                <a href="#hospitals" class="hover:text-medical-600 transition-colors" data-i18n="navHospitals">Hospitals</a>
+                <a href="#faq" class="hover:text-medical-600 transition-colors" data-i18n="navFaq">FAQ</a>
+            </nav>
+
+            <!-- Language Switcher & Action Buttons -->
+            <div class="hidden sm:flex items-center gap-3">
+                <!-- Language Switcher Toggle -->
+                <div class="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-100 text-xs font-semibold">
+                    <button id="langENBtn" onclick="switchLanguage('en')" class="px-2.5 py-1 rounded-md bg-white text-medical-700 shadow-xs transition-all">🇬🇧 EN</button>
+                    <button id="langIDBtn" onclick="switchLanguage('id')" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all">🇮🇩 ID</button>
+                </div>
+
+                <button onclick="copyWeChatID()" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200 hover:bg-emerald-100 transition-all">
+                    <i class="fa-brands fa-weixin text-base text-emerald-600"></i>
+                    <span>WeChat: <strong id="headerWeChatText">CareCompanionNJ</strong></span>
+                </button>
+                <a href="#calculator" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-medical-600 hover:bg-medical-700 text-white text-xs font-semibold shadow-sm transition-all" data-i18n="btnBookNow">
+                    Book Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none" aria-label="Toggle navigation menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                <span class="text-xs font-semibold text-slate-500">Language / Bahasa:</span>
+                <div class="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-100 text-xs font-semibold">
+                    <button id="langENBtnMobile" onclick="switchLanguage('en')" class="px-3 py-1 rounded-md bg-white text-medical-700 shadow-xs">English</button>
+                    <button id="langIDBtnMobile" onclick="switchLanguage('id')" class="px-3 py-1 rounded-md text-slate-600">Bahasa Indonesia</button>
+                </div>
+            </div>
+            <a href="#about" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navAbout">About Us</a>
+            <a href="#how-it-works" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navHow">How It Works</a>
+            <a href="#founder" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navFounder">Meet the Founder</a>
+            <a href="#calculator" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navBook">Book Escort</a>
+            <a href="#hospitals" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navHospitals">Student Hospital Directory</a>
+            <a href="#faq" class="block py-2 text-sm font-medium text-slate-700 hover:text-medical-600" data-i18n="navFaq">FAQ</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <button onclick="copyWeChatID()" class="w-full text-center py-2.5 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                    <i class="fa-brands fa-weixin mr-1.5 text-emerald-600"></i> Copy WeChat ID
+                </button>
+                <a href="#calculator" class="w-full text-center py-2.5 rounded-lg bg-medical-600 text-white text-xs font-semibold" data-i18n="btnBookNow">
+                    Book Companion
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="about" class="relative overflow-hidden bg-gradient-to-b from-medical-50/70 via-white to-slate-50 py-16 sm:py-24">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-medical-200/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/2 -left-24 w-80 h-80 bg-teal-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-medical-100 text-medical-800 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span data-i18n="heroBadge">NJMU Medical Student Network for Nanjing Universities</span>
+                        </div>
+                        
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight" data-i18n="heroTitle">
+                            Hospital Companion & Navigation by <span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-600 to-teal-600">NJMU Medical Students</span>
+                        </h1>
+                        
+                        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed" data-i18n="heroDescription">
+                            Feeling unwell away from home? Get accompanied by a friendly Nanjing Medical University (NJMU) student who understands medical concepts, helps you navigate the Chinese hospital system, and provides supportive peer presence during your visit.
+                        </p>
+
+                        <!-- Key Hero Points Tag Cloud -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 text-xs font-medium text-slate-600">
+                            <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 shadow-sm px-3 py-1.5 rounded-lg">
+                                <i class="fa-solid fa-check text-emerald-500"></i> <span data-i18n="tag1">Nanjing Medical University Student Companion</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 shadow-sm px-3 py-1.5 rounded-lg">
+                                <i class="fa-solid fa-check text-emerald-500"></i> <span data-i18n="tag2">Hospital System Navigation</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 bg-white border border-slate-200 shadow-sm px-3 py-1.5 rounded-lg">
+                                <i class="fa-solid fa-check text-emerald-500"></i> <span data-i18n="tag3">Medical Understanding & Peer Support</span>
+                            </span>
+                        </div>
+
+                        <!-- Hero CTA Buttons -->
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="#calculator" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-medical-600 hover:bg-medical-700 text-white font-semibold text-sm shadow-lg shadow-medical-600/25 transition-all">
+                                <i class="fa-regular fa-calendar-check mr-2"></i> <span data-i18n="heroBtnBook">Book Escort (3-7 Days Ahead)</span>
+                            </a>
+                            <a href="#founder" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-semibold text-sm border border-slate-200 shadow-sm transition-all">
+                                <i class="fa-solid fa-user-shield mr-2 text-medical-600"></i> <span data-i18n="heroBtnFounder">Meet the Founder</span>
+                            </a>
+                        </div>
+
+                        <!-- Important Disclaimer Box -->
+                        <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-left text-xs text-amber-800 leading-relaxed">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1.5 font-bold"></i>
+                            <strong data-i18n="disclaimerHeader">Service Scope:</strong> <span data-i18n="disclaimerBody">CareCompanionNJ provides physical accompaniment, on-site line navigation, and general communication assistance in the hospital. Companions are student peers who assist with medical terms and procedures—they are not official translators, nor do they perform clinical diagnosis or handle official account setups.</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Hero Visual Card / Quick Widget -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 relative">
+                            
+                            <!-- Platform Security Banner -->
+                            <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+                                <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-base" data-i18n="escrowTitle">Secure Platform Payment</h3>
+                                    <p class="text-xs text-slate-500" data-i18n="escrowDesc">Your booking fee is held safely by the manager until service completion.</p>
+                                </div>
+                            </div>
+
+                            <!-- Live Feature Highlights -->
+                            <div class="space-y-4">
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-hospital-user text-medical-600 text-lg"></i>
+                                        <div>
+                                            <p class="text-xs font-semibold text-slate-900" data-i18n="cardFeat1Title">Hospital System Guidance</p>
+                                            <p class="text-[11px] text-slate-500" data-i18n="cardFeat1Desc">Companion helps pick and navigate the right hospital</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-teal-700 bg-teal-50 px-2 py-1 rounded" data-i18n="badgeMatch">Smart Match</span>
+                                </div>
+
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-hand-holding-medical text-medical-600 text-lg"></i>
+                                        <div>
+                                            <p class="text-xs font-semibold text-slate-900" data-i18n="cardFeat2Title">Medical Knowledge Support</p>
+                                            <p class="text-[11px] text-slate-500" data-i18n="cardFeat2Desc">Companion understands medical procedures and vocabulary</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-teal-700 bg-teal-50 px-2 py-1 rounded" data-i18n="badgePeer">Peer Escort</span>
+                                </div>
+
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-user-check text-medical-600 text-lg"></i>
+                                        <div>
+                                            <p class="text-xs font-semibold text-slate-900" data-i18n="cardFeat3Title">Hand-Picked NJMU Students</p>
+                                            <p class="text-[11px] text-slate-500" data-i18n="cardFeat3Desc">Carefully selected empathetic medical peers</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-teal-700 bg-teal-50 px-2 py-1 rounded" data-i18n="badgeVetted">Vetted</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                <span><i class="fa-solid fa-clock mr-1 text-slate-400"></i> <span data-i18n="cardFooterClock">Book 3 to 7 days ahead</span></span>
+                                <span class="font-bold text-slate-700" data-i18n="cardFooterRate">From ¥80 / Session</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Founder & Trust Profile Section -->
+        <section id="founder" class="py-16 sm:py-20 bg-white border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-br from-medical-50 via-slate-50 to-teal-50/40 rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- Avatar / Badge Visual -->
+                        <div class="lg:col-span-4 text-center">
+                            <div class="relative inline-block">
+                                <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-tr from-medical-600 to-teal-500 flex items-center justify-center text-white text-6xl shadow-xl mx-auto border-4 border-white">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                </div>
+                                <span class="absolute bottom-2 right-2 bg-emerald-500 text-white p-2 rounded-full border-2 border-white text-xs shadow" title="Verified NJMU Student Leader">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mt-4" data-i18n="founderTitle">Platform Founder</h3>
+                            <p class="text-xs font-medium text-medical-700">Medical Student @ Nanjing Medical University (NJMU)</p>
+                            <p class="text-[11px] text-slate-500 mt-1"><i class="fa-solid fa-location-dot mr-1"></i>Jiangning / Wutai Campus, Nanjing</p>
+                        </div>
+
+                        <!-- Founder Statement -->
+                        <div class="lg:col-span-8 space-y-4">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-slate-700 text-xs font-semibold shadow-sm">
+                                <i class="fa-solid fa-quote-left text-medical-600"></i> <span data-i18n="founderQuoteBadge">Why I Started CareCompanionNJ</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-i18n="founderHeading">A Trusted Peer Support Network Built by an NJMU Student</h2>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed" data-i18n="founderP1">
+                                As a medical student at Nanjing Medical University (NJMU), I’ve seen firsthand how overwhelming it can be for international students—especially our Indonesian student community in Nanjing—when they get sick. Even for students who speak decent everyday Chinese, navigating hospital triage, registration counters, and complex multi-floor diagnostics is stressful when you are unwell.
+                            </p>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed" data-i18n="founderP2">
+                                I founded <strong>CareCompanionNJ</strong> to offer supportive peer accompaniment. All our escorts are hand-picked fellow medical students from NJMU who possess student empathy, basic medical understanding, and familiarity with hospital routines. We don't claim to be professional medical interpreters, but we are knowledgeable peers who stand by your side so you never have to go through a hospital visit alone.
+                            </p>
+
+                            <!-- Trust Guarantees Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
+                                <div class="bg-white p-3 rounded-xl border border-slate-200/80">
+                                    <p class="text-xs font-bold text-slate-900"><i class="fa-solid fa-id-card text-medical-600 mr-1.5"></i> <span data-i18n="trust1Title">Hand-Picked Escorts</span></p>
+                                    <p class="text-[11px] text-slate-500 mt-0.5" data-i18n="trust1Desc">Kindhearted, empathetic NJMU medical peers personally vetted by the founder.</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-slate-200/80">
+                                    <p class="text-xs font-bold text-slate-900"><i class="fa-solid fa-lock text-emerald-600 mr-1.5"></i> <span data-i18n="trust2Title">Secure Escrow</span></p>
+                                    <p class="text-[11px] text-slate-500 mt-0.5" data-i18n="trust2Desc">Payment is safely managed by the platform until the visit concludes.</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-slate-200/80">
+                                    <p class="text-xs font-bold text-slate-900"><i class="fa-solid fa-hand-holding-heart text-teal-600 mr-1.5"></i> <span data-i18n="trust3Title">Hospital Peer Support</span></p>
+                                    <p class="text-[11px] text-slate-500 mt-0.5" data-i18n="trust3Desc">Focus on guidance, line support, and understanding procedures.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-16 sm:py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold text-medical-600 uppercase tracking-widest mb-2" data-i18n="howSub">Fair & Structured System</h2>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-i18n="howTitle">How the Service & Escort System Works</p>
+                    <p class="mt-2 text-xs sm:text-sm text-slate-500" data-i18n="howDesc">Designed to give patients peace of mind and fit NJMU medical students' academic schedules.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                        <span class="w-8 h-8 rounded-full bg-medical-600 text-white font-bold text-sm flex items-center justify-center mb-4">1</span>
+                        <h3 class="text-base font-bold text-slate-900 mb-2" data-i18n="step1Title">Book 3-7 Days Ahead</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed" data-i18n="step1Desc">
+                            Submit your visit details, campus location, and symptoms. Advance booking allows our medical students to fit shifts around their coursework.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                        <span class="w-8 h-8 rounded-full bg-medical-600 text-white font-bold text-sm flex items-center justify-center mb-4">2</span>
+                        <h3 class="text-base font-bold text-slate-900 mb-2" data-i18n="step2Title">Platform Pre-Payment</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed" data-i18n="step2Desc">
+                            Pay the fee directly to the platform manager. Once validated, the booking is posted to our private NJMU escort assignment board.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                        <span class="w-8 h-8 rounded-full bg-medical-600 text-white font-bold text-sm flex items-center justify-center mb-4">3</span>
+                        <h3 class="text-base font-bold text-slate-900 mb-2" data-i18n="step3Title">Escort Match & Routing</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed" data-i18n="step3Desc">
+                            An approved NJMU medical student accepts the shift and contacts you directly to confirm meeting details and hospital recommendation.
+                        </p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                        <span class="w-8 h-8 rounded-full bg-tealAccent-600 text-white font-bold text-sm flex items-center justify-center mb-4">4</span>
+                        <h3 class="text-base font-bold text-slate-900 mb-2" data-i18n="step4Title">Escort & Verified Payout</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed" data-i18n="step4Desc">
+                            Your companion accompanies you through registration and doctors. Upon service completion, the escort receives their pre-agreed stipend.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Escort Request Board Demo & Registration Info -->
+                <div class="mt-12 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-slate-100 pb-4 mb-4 gap-3">
+                        <div>
+                            <span class="text-xs font-bold text-medical-600 uppercase tracking-wide"><i class="fa-solid fa-eye mr-1"></i> <span data-i18n="boardBadge">Protected Companion Portal</span></span>
+                            <h4 class="text-base font-bold text-slate-900" data-i18n="boardTitle">Private NJMU Medical Student Shift Board (Preview)</h4>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-[11px] bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-medium">
+                                <i class="fa-solid fa-eye-slash text-amber-600 mr-1"></i> <span data-i18n="boardConfidentialNote">Client payment amounts are strictly confidential & managed by founder</span>
+                            </span>
+                            <button onclick="openEscortRegisterModal()" class="text-[11px] bg-medical-50 text-medical-700 border border-medical-200 hover:bg-medical-100 px-3 py-1 rounded-full font-semibold transition-all">
+                                <i class="fa-solid fa-user-plus mr-1"></i> <span data-i18n="btnApplyEscort">Apply as NJMU Escort</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-500 mb-4" data-i18n="boardExplanation">
+                        * Note: To ensure safety and genuine empathy, only hand-picked and vetted NJMU medical students verified by the founder can log in to accept shifts. Client payment amounts are hidden from escorts to maintain a clean platform ecosystem.
+                    </p>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-50 text-slate-800 font-semibold border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3" data-i18n="thId">Shift ID</th>
+                                    <th class="p-3" data-i18n="thCampus">Patient Area / Campus</th>
+                                    <th class="p-3" data-i18n="thSymptoms">Symptoms / Need</th>
+                                    <th class="p-3" data-i18n="thHospital">Recommended Hospital</th>
+                                    <th class="p-3" data-i18n="thStatus">Status</th>
+                                    <th class="p-3 text-right" data-i18n="thAction">Escort Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-mono font-medium text-slate-900">#NJ-8021</td>
+                                    <td class="p-3">NJU Xianlin Campus</td>
+                                    <td class="p-3">Persistent Cough & Fever</td>
+                                    <td class="p-3 text-medical-700 font-semibold">Jiangsu Province Hospital</td>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-semibold" data-i18n="statusValidated">Pre-Paid & Verified</span></td>
+                                    <td class="p-3 text-right"><button onclick="showToast('Escort Login Required', 'Only verified NJMU companions can accept active shifts.')" class="bg-medical-600 hover:bg-medical-700 text-white px-3 py-1 rounded text-[11px] font-semibold transition-colors" data-i18n="btnAcceptShift">Accept Shift</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-mono font-medium text-slate-900">#NJ-8024</td>
+                                    <td class="p-3">SEU Jiulonghu Campus</td>
+                                    <td class="p-3">Eye Allergy & Redness</td>
+                                    <td class="p-3 text-medical-700 font-semibold">NJMU Eye Hospital (Wutai)</td>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-semibold" data-i18n="statusValidated">Pre-Paid & Verified</span></td>
+                                    <td class="p-3 text-right"><button onclick="showToast('Escort Login Required', 'Only verified NJMU companions can accept active shifts.')" class="bg-medical-600 hover:bg-medical-700 text-white px-3 py-1 rounded text-[11px] font-semibold transition-colors" data-i18n="btnAcceptShift">Accept Shift</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Booking & Fee Calculator Section -->
+        <section id="calculator" class="py-16 sm:py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-medical-600 uppercase tracking-widest mb-2" data-i18n="calcSub">Transparent Student Rates</h2>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-i18n="calcTitle">Booking Request & Fee Estimator</p>
+                    <p class="mt-2 text-xs sm:text-sm text-slate-500" data-i18n="calcDesc">Book at least 3-7 days in advance. Pre-payment is required to validate matching with NJMU medical companions.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Left: Interactive Fee Estimator & Form -->
+                    <div class="lg:col-span-7 bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-medical-600"></i> <span data-i18n="formHeading">Request Companion Escort</span>
+                        </h3>
+
+                        <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                            
+                            <!-- Student Info Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelName">Your Name *</label>
+                                    <input type="text" required id="studentName" placeholder="e.g. Budi Santoso / Alex Smith" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelUni">University & Campus *</label>
+                                    <input type="text" required id="studentUni" placeholder="e.g. NJU Xianlin / SEU Jiulonghu / CPU" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white">
+                                </div>
+                            </div>
+
+                            <!-- Contact Info Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelContact">WeChat ID or Phone Number *</label>
+                                    <input type="text" required id="studentContact" placeholder="WeChat ID preferred" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelDate">Preferred Date (3-7 Days Ahead) *</label>
+                                    <input type="date" required id="visitDate" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white">
+                                </div>
+                            </div>
+
+                            <!-- Hospital Determination Strategy -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelHospital">Target Hospital Preference *</label>
+                                <select id="hospitalSelect" onchange="calculateFee()" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white">
+                                    <option value="companion_decides" data-fee="90" selected>💡 Let NJMU Companion Recommend Best Hospital (Recommended)</option>
+                                    <option value="jiangsu_first" data-fee="100">Jiangsu Province Hospital / 省人民医院</option>
+                                    <option value="sir_run_run" data-fee="90">Sir Run Run Shaw Hospital / 逸夫医院 (NJMU Affiliated)</option>
+                                    <option value="jiangning" data-fee="80">Jiangning Hospital / 江宁医院</option>
+                                    <option value="second_affiliated" data-fee="90">Secondary Affiliated Hospital of NJMU / 二附院</option>
+                                    <option value="eye_hospital" data-fee="90">NJMU Eye Hospital near Wutai / 医科大学眼科医院</option>
+                                </select>
+                                <p class="text-[11px] text-slate-500 mt-1" data-i18n="hospitalNote">If you aren't sure, select "Let NJMU Companion Recommend". Your escort will evaluate your symptoms and location to select the best facility.</p>
+                            </div>
+
+                            <!-- Duration Selection -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelDuration">Service Duration *</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-medical-500">
+                                        <input type="radio" name="duration" value="3" checked onchange="calculateFee()" class="text-medical-600 focus:ring-medical-500">
+                                        <div>
+                                            <p class="text-xs font-bold text-slate-800" data-i18n="durHalf">Half-Day (Up to 3 hrs)</p>
+                                            <p class="text-[11px] text-slate-500" data-i18n="durHalfDesc">Standard outpatient consultation</p>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-300 bg-white cursor-pointer hover:border-medical-500">
+                                        <input type="radio" name="duration" value="6" onchange="calculateFee()" class="text-medical-600 focus:ring-medical-500">
+                                        <div>
+                                            <p class="text-xs font-bold text-slate-800" data-i18n="durFull">Full-Day (Up to 6 hrs)</p>
+                                            <p class="text-[11px] text-slate-500" data-i18n="durFullDesc">Multiple diagnostic scans / tests</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Add-on Options -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelPickup">Campus Pick-up Option</label>
+                                <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+                                    <input type="checkbox" id="addonCampusPick" onchange="calculateFee()" class="rounded text-medical-600">
+                                    <span data-i18n="addonCampusText">Meet at my campus entrance first (+¥20 transit allowance for escort)</span>
+                                </label>
+                            </div>
+
+                            <!-- Notes/Symptoms -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1" data-i18n="labelSymptoms">Describe Symptoms or Reason for Visit *</label>
+                                <textarea id="visitNotes" required rows="2" placeholder="e.g. Eye allergy redness for 3 days, or need dental consultation." class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-medical-500 focus:outline-none bg-white"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-medical-600 hover:bg-medical-700 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                                <i class="fa-paper-plane fa-solid"></i> <span data-i18n="btnSubmitBooking">Submit Booking & Get Pre-Payment Link</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Dynamic Summary & Payment Rules -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-medical-700 to-medical-800 text-white p-6 sm:p-8 rounded-2xl shadow-xl sticky top-24">
+                        <div class="flex items-center justify-between border-b border-medical-600/60 pb-4 mb-6">
+                            <div>
+                                <span class="text-xs text-medical-200 font-semibold uppercase tracking-wider block" data-i18n="sumTitle">Estimated Escort Fee</span>
+                                <h4 class="text-3xl font-extrabold text-white mt-1" id="totalPriceDisplay">¥90 <span class="text-xs font-normal text-medical-200">RMB</span></h4>
+                            </div>
+                            <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 text-xs rounded-full font-medium border border-emerald-400/30" data-i18n="sumBadge">Student Rate</span>
+                        </div>
+
+                        <!-- Calculation breakdown list -->
+                        <div class="space-y-3 text-xs text-medical-100 mb-6">
+                            <div class="flex justify-between py-1 border-b border-medical-600/40">
+                                <span id="summaryHospitalName">Base Service Fee</span>
+                                <span class="font-semibold text-white" id="summaryBaseFee">¥90</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-medical-600/40">
+                                <span data-i18n="sumFactor">Duration Factor</span>
+                                <span class="font-semibold text-white" id="summaryDurationText">Half-Day (1.0x)</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-medical-600/40">
+                                <span data-i18n="sumPickup">Campus Pick-up Transit</span>
+                                <span class="font-semibold text-white" id="summaryCampusFee">¥0</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-medical-900/50 p-4 rounded-xl border border-medical-600/60 space-y-2 mb-6">
+                            <p class="text-xs font-semibold text-emerald-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-credit-card"></i> <span data-i18n="escrowRulesHeader">Payment & Escrow Rules</span>
+                            </p>
+                            <ul class="text-[11px] text-medical-200 space-y-1.5 list-disc pl-4 leading-relaxed">
+                                <li data-i18n="rule1">Pre-payment to manager is required to validate booking.</li>
+                                <li data-i18n="rule2">Escorts view shift availability (client payment rates remain hidden).</li>
+                                <li data-i18n="rule3">Escort stipend is released after service confirmation.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Direct WeChat Scan Prompt -->
+                        <div class="text-center pt-2">
+                            <p class="text-xs text-medical-200 mb-3" data-i18n="wechatPrompt">Have questions before paying?</p>
+                            <button onclick="openWeChatModal()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-weixin text-base"></i> <span data-i18n="btnContactManager">Contact Manager on WeChat</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Popular Hospitals Directory -->
+        <section id="hospitals" class="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-medical-600 uppercase tracking-widest mb-2" data-i18n="hospSub">Primary Service Destinations</h2>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-i18n="hospTitle">Hospitals Commonly Visited by Students in Nanjing</p>
+                    <p class="mt-2 text-xs sm:text-sm text-slate-500" data-i18n="hospDesc">Selected based on proximity to university campuses, specialized care, and NJMU student escort familiarity.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Hospital 1 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-medical-50 text-medical-700 text-[11px] font-bold">Grade-3A Tertiary</span>
+                            <span class="text-xs text-slate-400 font-medium">Guangzhou Road</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Jiangsu Province Hospital</h3>
+                        <p class="text-xs text-slate-500 mb-3">江苏省人民医院 (1st Affiliated NJMU)</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp1Desc">
+                            The top general medical center in Jiangsu. Excellent choice for complex diagnostics, internal medicine, and specialist consultations.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Comprehensive Care</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">NJMU Main Affiliated</span>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 2 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 text-[11px] font-bold">Jiangning Campus Area</span>
+                            <span class="text-xs text-slate-400 font-medium">Jiangning District</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Sir Run Run Shaw Hospital</h3>
+                        <p class="text-xs text-slate-500 mb-3">南京医科大学附属逸夫医院</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp2Desc">
+                            Modern facility adjacent to NJMU Jiangning campus. Great infrastructure, fast registration, and quiet outpatient clinics.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Close to Jiangning Campuses</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">NJMU Affiliated</span>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 3 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-medical-50 text-medical-700 text-[11px] font-bold">Jiangning Central</span>
+                            <span class="text-xs text-slate-400 font-medium">Gushu Road</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Nanjing Jiangning Hospital</h3>
+                        <p class="text-xs text-slate-500 mb-3">南京市江宁医院</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp3Desc">
+                            Primary healthcare hub for students in Jiangning University Town. Convenient for general outpatient visits and lab work.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">University Town Hub</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">General Outpatient</span>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 4 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-medical-50 text-medical-700 text-[11px] font-bold">Grade-3A Tertiary</span>
+                            <span class="text-xs text-slate-400 font-medium">SanpaiLou Area</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Second Affiliated Hospital of NJMU</h3>
+                        <p class="text-xs text-slate-500 mb-3">南京医科大学第二附属医院 (二附院)</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp4Desc">
+                            Key clinical hospital affiliated with NJMU. Excellent departments for gastroenterology, ENT, and general internal medicine.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">NJMU Clinical Base</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">ENT & Gastro</span>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 5 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-purple-50 text-purple-700 text-[11px] font-bold">Ophthalmology Specialty</span>
+                            <span class="text-xs text-slate-400 font-medium">Near Wutai Campus</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">NJMU Eye Hospital</h3>
+                        <p class="text-xs text-slate-500 mb-3">江苏省红十字眼科医院 / 医科大学眼科医院</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp5Desc">
+                            Located right near NJMU Wutai campus. Premier specialty hospital for eye infections, vision checkups, and corneal consultations.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Eye Specialist</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Wutai Campus Adjacent</span>
+                        </div>
+                    </div>
+
+                    <!-- Hospital 6 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-amber-50 text-amber-700 text-[11px] font-bold">Smart Recommendation</span>
+                            <span class="text-xs text-slate-400 font-medium">All Nanjing Areas</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1" data-i18n="hosp6Title">Companion Recommended Hospital</h3>
+                        <p class="text-xs text-slate-500 mb-3" data-i18n="hosp6Sub">Custom routing based on symptoms</p>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed" data-i18n="hosp6Desc">
+                            Unsure where to go? Submit your symptoms and your assigned NJMU companion will evaluate and guide you to the most appropriate nearby hospital.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-[11px]">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Guided Routing</span>
+                            <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Symptom Based</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 sm:py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-bold text-medical-600 uppercase tracking-widest mb-2" data-i18n="faqSub">Got Questions?</h2>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-slate-900" data-i18n="faqTitle">Frequently Asked Questions</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 font-semibold text-slate-900 text-sm flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                            <span data-i18n="faq1Q">Why do I need to book 3 to 7 days in advance?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-xs sm:text-sm text-slate-600 border-t border-slate-100 leading-relaxed bg-white" data-i18n="faq1A">
+                            All our companions are active medical students at Nanjing Medical University (NJMU). Advance booking allows them to review incoming requests, coordinate shift availability around their lectures or clinical rotations, and avoid schedule conflicts.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 font-semibold text-slate-900 text-sm flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                            <span data-i18n="faq2Q">What tasks can my companion help with (and what is excluded)?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-xs sm:text-sm text-slate-600 border-t border-slate-100 leading-relaxed bg-white" data-i18n="faq2A">
+                            <strong>Included:</strong> Physical hospital accompaniment, line/counter navigation, helping you communicate symptoms to doctors with medical understanding, and recommending suitable hospitals.<br>
+                            <strong>Excluded:</strong> Escorts are peer helpers (not certified professional medical translators). They do not issue official medical advice, perform clinical procedures, manage WeChat registration accounts, or handle insurance paperwork.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 font-semibold text-slate-900 text-sm flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                            <span data-i18n="faq3Q">How does payment and escort privacy work?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-xs sm:text-sm text-slate-600 border-t border-slate-100 leading-relaxed bg-white" data-i18n="faq3A">
+                            You pay the booking fee directly to the platform manager to validate your request. Patient payment rates remain strictly confidential to the manager so that escort compensation is handled fairly without friction. After the visit is completed, the companion receives their pre-arranged stipend upon manager verification.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full text-left px-6 py-4 font-semibold text-slate-900 text-sm flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                            <span data-i18n="faq4Q">Who can become an escort?</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-xs sm:text-sm text-slate-600 border-t border-slate-100 leading-relaxed bg-white" data-i18n="faq4A">
+                            Escorts are not random public applicants. They are hand-picked, empathetic, and kindhearted medical peers from Nanjing Medical University (NJMU) selected directly by the founder. Prospective escorts submit an application which is reviewed before granting shift board access.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Direct WeChat CTA Banner -->
+        <section class="py-12 bg-gradient-to-r from-medical-700 to-teal-700 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-3" data-i18n="bannerTitle">Ready to Schedule an Escort or Have Questions?</h2>
+                <p class="text-xs sm:text-sm text-medical-100 max-w-xl mx-auto mb-6" data-i18n="bannerDesc">
+                    Connect directly with our manager on WeChat to confirm pre-payment and lock in your NJMU medical student companion.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="copyWeChatID()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-white text-medical-800 font-bold text-sm hover:bg-teal-50 transition-all shadow-md">
+                        <i class="fa-brands fa-weixin text-emerald-600 text-base mr-2"></i> Copy WeChat ID: <span id="bannerWeChatText">CareCompanionNJ</span>
+                    </button>
+                    <button onclick="openWeChatModal()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-medical-900/60 hover:bg-medical-900 text-white font-semibold text-sm border border-white/20 transition-all">
+                        <i class="fa-solid fa-qrcode mr-2"></i> <span data-i18n="btnScanQr">Scan WeChat QR Code</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-7 h-7 rounded-lg bg-medical-600 flex items-center justify-center text-white font-bold text-sm">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        <span class="text-base font-bold text-white">CareCompanionNJ</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed mb-3" data-i18n="footerBio">
+                        NJMU medical student-led hospital companion platform providing empathetic guidance, hospital navigation, and peer support for university students in Nanjing.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-3" data-i18n="footerHospHeader">Popular Student Hospitals</h4>
+                    <ul class="space-y-1.5 text-slate-400">
+                        <li>• Jiangsu Province Hospital (省人民医院)</li>
+                        <li>• Sir Run Run Shaw Hospital (逸夫医院)</li>
+                        <li>• Nanjing Jiangning Hospital (江宁医院)</li>
+                        <li>• NJMU Eye Hospital (医科大学眼科医院)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-white mb-3" data-i18n="footerDisclaimerHeader">Platform Disclaimer</h4>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="footerDisclaimerText">
+                        Companions are NJMU medical students acting strictly as empathetic peer escorts and helpers. They do not issue official medical diagnoses, manage official WeChat registration setups, or handle prescriptions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-800 text-center text-slate-500">
+                <p>© <span id="yearSpan"></span> CareCompanionNJ. Founded by NJMU Medical Students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WeChat QR Code Modal -->
+    <div id="wechatModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl">
+            <button onclick="closeWeChatModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 text-2xl">
+                <i class="fa-brands fa-weixin"></i>
+            </div>
+            
+            <h3 class="text-lg font-bold text-slate-900 mb-1" data-i18n="modalWechatTitle">Add WeChat Manager</h3>
+            <p class="text-xs text-slate-500 mb-4" data-i18n="modalWechatDesc">Scan QR code or copy ID below to complete pre-payment and validate your booking.</p>
+            
+            <!-- QR Image -->
+            <div class="bg-slate-100 p-4 rounded-xl inline-block mb-4 border border-slate-200">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=CareCompanionNJ" alt="WeChat QR Code" class="w-44 h-44 rounded-lg mx-auto">
+            </div>
+
+            <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex items-center justify-between text-xs mb-4">
+                <span class="text-slate-600 font-medium">WeChat ID: <strong class="text-slate-900">CareCompanionNJ</strong></span>
+                <button onclick="copyWeChatID()" class="text-medical-600 font-semibold hover:underline">Copy</button>
+            </div>
+
+            <button onclick="closeWeChatModal()" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- NJMU Escort Registration Modal -->
+    <div id="escortRegisterModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeEscortRegisterModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-medical-100 text-medical-700 flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-900" data-i18n="escortRegTitle">Apply as NJMU Student Companion</h3>
+                    <p class="text-xs text-slate-500" data-i18n="escortRegSub">Only verified, empathetic NJMU medical students are selected.</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleEscortApply(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="escortLabelName">Full Name & Major *</label>
+                    <input type="text" required placeholder="e.g. Sarah / Clinical Medicine 2023" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-medical-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="escortLabelId">NJMU Student ID Number *</label>
+                    <input type="text" required placeholder="e.g. 202209XXXX" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-medical-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="escortLabelWechat">WeChat ID & Phone *</label>
+                    <input type="text" required placeholder="Your contact WeChat ID" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-medical-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="escortLabelCampus">Primary Campus / Hospital Placement</label>
+                    <select class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-medical-500 focus:outline-none">
+                        <option>Jiangning Campus (Near Sir Run Run Shaw)</option>
+                        <option>Wutai Campus (Near Jiangsu Prov. Hospital)</option>
+                        <option>Secondary Affiliated Hospital (Er Fu Yuan)</option>
+                    </select>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 leading-relaxed text-[11px]" data-i18n="escortRegNotice">
+                    <i class="fa-solid fa-circle-info text-medical-600 mr-1"></i>
+                    Applications are manually vetted by the founder to maintain safety and empathy. Approved companions receive shift board credentials directly via WeChat.
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-medical-600 hover:bg-medical-700 text-white font-bold text-xs shadow transition-all">
+                    Submit Application for Founder Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Confirmation Toast Notification -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3.5 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3 border border-slate-700 text-xs sm:text-sm">
+        <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold flex-shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <p class="font-bold text-white" id="toastTitle">Request Submitted!</p>
+            <p class="text-slate-300 text-xs" id="toastMessage">Please connect with manager to complete pre-payment.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic & Language Dictionary -->
+    <script>
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+        // Bilingual Translation Dictionary (English / Indonesian)
+        const translations = {
+            en: {
+                topBarText: "Matched with medical student companions from <strong>Nanjing Medical University (NJMU)</strong>.",
+                topBarLink: "Book 3-7 Days Ahead →",
+                navAbout: "About Us",
+                navHow: "How It Works",
+                navFounder: "Founder Profile",
+                navBook: "Book Escort",
+                navHospitals: "Hospitals",
+                navFaq: "FAQ",
+                btnBookNow: "Book Now",
+
+                heroBadge: "NJMU Medical Student Network for Nanjing Universities",
+                heroTitle: "Hospital Companion & Navigation by <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-medical-600 to-teal-600\">NJMU Medical Students</span>",
+                heroDescription: "Feeling unwell away from home? Get accompanied by a friendly Nanjing Medical University (NJMU) student who understands medical concepts, helps you navigate the Chinese hospital system, and provides supportive peer presence during your visit.",
+                tag1: "Nanjing Medical University Student Companion",
+                tag2: "Hospital System Navigation",
+                tag3: "Medical Understanding & Peer Support",
+                heroBtnBook: "Book Escort (3-7 Days Ahead)",
+                heroBtnFounder: "Meet the Founder",
+                disclaimerHeader: "Service Scope:",
+                disclaimerBody: "CareCompanionNJ provides physical accompaniment, on-site line navigation, and general communication assistance in the hospital. Companions are student peers who assist with medical terms and procedures—they are not official translators, nor do they perform clinical diagnosis or handle official account setups.",
+
+                escrowTitle: "Secure Platform Payment",
+                escrowDesc: "Your booking fee is held safely by the manager until service completion.",
+                cardFeat1Title: "Hospital System Guidance",
+                cardFeat1Desc: "Companion helps pick and navigate the right hospital",
+                badgeMatch: "Smart Match",
+                cardFeat2Title: "Medical Knowledge Support",
+                cardFeat2Desc: "Companion understands medical procedures and vocabulary",
+                badgePeer: "Peer Escort",
+                cardFeat3Title: "Hand-Picked NJMU Students",
+                cardFeat3Desc: "Carefully selected empathetic medical peers",
+                badgeVetted: "Vetted",
+                cardFooterClock: "Book 3 to 7 days ahead",
+                cardFooterRate: "From ¥80 / Session",
+
+                founderTitle: "Platform Founder",
+                founderQuoteBadge: "Why I Started CareCompanionNJ",
+                founderHeading: "A Trusted Peer Support Network Built by an NJMU Student",
+                founderP1: "As a medical student at Nanjing Medical University (NJMU), I’ve seen firsthand how overwhelming it can be for international students—especially our Indonesian student community in Nanjing—when they get sick. Even for students who speak decent everyday Chinese, navigating hospital triage, registration counters, and complex multi-floor diagnostics is stressful when you are unwell.",
+                founderP2: "I founded CareCompanionNJ to offer supportive peer accompaniment. All our escorts are hand-picked fellow medical students from NJMU who possess student empathy, basic medical understanding, and familiarity with hospital routines. We don't claim to be professional medical interpreters, but we are knowledgeable peers who stand by your side so you never have to go through a hospital visit alone.",
+                trust1Title: "Hand-Picked Escorts",
+                trust1Desc: "Kindhearted, empathetic NJMU medical peers personally vetted by the founder.",
+                trust2Title: "Secure Escrow",
+                trust2Desc: "Payment is safely managed by the platform until the visit concludes.",
+                trust3Title: "Hospital Peer Support",
+                trust3Desc: "Focus on guidance, line support, and understanding procedures.",
+
+                howSub: "Fair & Structured System",
+                howTitle: "How the Service & Escort System Works",
+                howDesc: "Designed to give patients peace of mind and fit NJMU medical students' academic schedules.",
+                step1Title: "Book 3-7 Days Ahead",
+                step1Desc: "Submit your visit details, campus location, and symptoms. Advance booking allows our medical students to fit shifts around their coursework.",
+                step2Title: "Platform Pre-Payment",
+                step2Desc: "Pay the fee directly to the platform manager. Once validated, the booking is posted to our private NJMU escort assignment board.",
+                step3Title: "Escort Match & Routing",
+                step3Desc: "An approved NJMU medical student accepts the shift and contacts you directly to confirm meeting details and hospital recommendation.",
+                step4Title: "Escort & Verified Payout",
+                step4Desc: "Your companion accompanies you through registration and doctors. Upon service completion, the escort receives their pre-agreed stipend.",
+
+                boardBadge: "Protected Companion Portal",
+                boardTitle: "Private NJMU Medical Student Shift Board (Preview)",
+                boardConfidentialNote: "Client payment amounts are strictly confidential & managed by founder",
+                btnApplyEscort: "Apply as NJMU Escort",
+                boardExplanation: "* Note: To ensure safety and genuine empathy, only hand-picked and vetted NJMU medical students verified by the founder can log in to accept shifts. Client payment amounts are hidden from escorts to maintain a clean platform ecosystem.",
+                thId: "Shift ID",
+                thCampus: "Patient Area / Campus",
+                thSymptoms: "Symptoms / Need",
+                thHospital: "Recommended Hospital",
+                thStatus: "Status",
+                thAction: "Escort Action",
+                statusValidated: "Pre-Paid & Verified",
+                btnAcceptShift: "Accept Shift",
+
+                calcSub: "Transparent Student Rates",
+                calcTitle: "Booking Request & Fee Estimator",
+                calcDesc: "Book at least 3-7 days in advance. Pre-payment is required to validate matching with NJMU medical companions.",
+                formHeading: "Request Companion Escort",
+                labelName: "Your Name *",
+                labelUni: "University & Campus *",
+                labelContact: "WeChat ID or Phone Number *",
+                labelDate: "Preferred Date (3-7 Days Ahead) *",
+                labelHospital: "Target Hospital Preference *",
+                hospitalNote: "If you aren't sure, select \"Let NJMU Companion Recommend\". Your escort will evaluate your symptoms and location to select the best facility.",
+                labelDuration: "Service Duration *",
+                durHalf: "Half-Day (Up to 3 hrs)",
+                durHalfDesc: "Standard outpatient consultation",
+                durFull: "Full-Day (Up to 6 hrs)",
+                durFullDesc: "Multiple diagnostic scans / tests",
+                labelPickup: "Campus Pick-up Option",
+                addonCampusText: "Meet at my campus entrance first (+¥20 transit allowance for escort)",
+                labelSymptoms: "Describe Symptoms or Reason for Visit *",
+                btnSubmitBooking: "Submit Booking & Get Pre-Payment Link",
+
+                sumTitle: "Estimated Escort Fee",
+                sumBadge: "Student Rate",
+                sumFactor: "Duration Factor",
+                sumPickup: "Campus Pick-up Transit",
+                escrowRulesHeader: "Payment & Escrow Rules",
+                rule1: "Pre-payment to manager is required to validate booking.",
+                rule2: "Escorts view shift availability (client payment rates remain hidden).",
+                rule3: "Escort stipend is released after service confirmation.",
+                wechatPrompt: "Have questions before paying?",
+                btnContactManager: "Contact Manager on WeChat",
+
+                hospSub: "Primary Service Destinations",
+                hospTitle: "Hospitals Commonly Visited by Students in Nanjing",
+                hospDesc: "Selected based on proximity to university campuses, specialized care, and NJMU student escort familiarity.",
+                hosp1Desc: "The top general medical center in Jiangsu. Excellent choice for complex diagnostics, internal medicine, and specialist consultations.",
+                hosp2Desc: "Modern facility adjacent to NJMU Jiangning campus. Great infrastructure, fast registration, and quiet outpatient clinics.",
+                hosp3Desc: "Primary healthcare hub for students in Jiangning University Town. Convenient for general outpatient visits and lab work.",
+                hosp4Desc: "Key clinical hospital affiliated with NJMU. Excellent departments for gastroenterology, ENT, and general internal medicine.",
+                hosp5Desc: "Located right near NJMU Wutai campus. Premier specialty hospital for eye infections, vision checkups, and corneal consultations.",
+                hosp6Title: "Companion Recommended Hospital",
+                hosp6Sub: "Custom routing based on symptoms",
+                hosp6Desc: "Unsure where to go? Submit your symptoms and your assigned NJMU companion will evaluate and guide you to the most appropriate nearby hospital.",
+
+                faqSub: "Got Questions?",
+                faqTitle: "Frequently Asked Questions",
+                faq1Q: "Why do I need to book 3 to 7 days in advance?",
+                faq1A: "All our companions are active medical students at Nanjing Medical University (NJMU). Advance booking allows them to review incoming requests, coordinate shift availability around their lectures or clinical rotations, and avoid schedule conflicts.",
+                faq2Q: "What tasks can my companion help with (and what is excluded)?",
+                faq2A: "<strong>Included:</strong> Physical hospital accompaniment, line/counter navigation, helping you communicate symptoms to doctors with medical understanding, and recommending suitable hospitals.<br><strong>Excluded:</strong> Escorts are peer helpers (not certified professional medical translators). They do not issue official medical advice, perform clinical procedures, manage WeChat registration accounts, or handle insurance paperwork.",
+                faq3Q: "How does payment and escort privacy work?",
+                faq3A: "You pay the booking fee directly to the platform manager to validate your request. Patient payment rates remain strictly confidential to the manager so that escort compensation is handled fairly without friction. After the visit is completed, the companion receives their pre-arranged stipend upon manager verification.",
+                faq4Q: "Who can become an escort?",
+                faq4A: "Escorts are not random public applicants. They are hand-picked, empathetic, and kindhearted medical peers from Nanjing Medical University (NJMU) selected directly by the founder. Prospective escorts submit an application which is reviewed before granting shift board access.",
+
+                bannerTitle: "Ready to Schedule an Escort or Have Questions?",
+                bannerDesc: "Connect directly with our manager on WeChat to confirm pre-payment and lock in your NJMU medical student companion.",
+                btnScanQr: "Scan WeChat QR Code",
+
+                footerBio: "NJMU medical student-led hospital companion platform providing empathetic guidance, hospital navigation, and peer support for university students in Nanjing.",
+                footerHospHeader: "Popular Student Hospitals",
+                footerDisclaimerHeader: "Platform Disclaimer",
+                footerDisclaimerText: "Companions are NJMU medical students acting strictly as empathetic peer escorts and helpers. They do not issue official medical diagnoses, manage official WeChat registration setups, or handle prescriptions.",
+
+                modalWechatTitle: "Add WeChat Manager",
+                modalWechatDesc: "Scan QR code or copy ID below to complete pre-payment and validate your booking.",
+                escortRegTitle: "Apply as NJMU Student Companion",
+                escortRegSub: "Only verified, empathetic NJMU medical students are selected.",
+                escortLabelName: "Full Name & Major *",
+                escortLabelId: "NJMU Student ID Number *",
+                escortLabelWechat: "WeChat ID & Phone *",
+                escortLabelCampus: "Primary Campus / Hospital Placement",
+                escortRegNotice: "Applications are manually vetted by the founder to maintain safety and empathy. Approved companions receive shift board credentials directly via WeChat."
+            },
+            id: {
+                topBarText: "Didampingi langsung oleh mahasiswa kedokteran dari <strong>Nanjing Medical University (NJMU)</strong>.",
+                topBarLink: "Pesan 3-7 Hari Sebelumnya →",
+                navAbout: "Tentang Kami",
+                navHow: "Cara Kerja",
+                navFounder: "Profil Pendiri",
+                navBook: "Pesan Pendamping",
+                navHospitals: "Rumah Sakit",
+                navFaq: "FAQ",
+                btnBookNow: "Pesan Sekarang",
+
+                heroBadge: "Jaringan Mahasiswa Kedokteran NJMU untuk Mahasiswa di Nanjing",
+                heroTitle: "Pendampingan & Navigasi Rumah Sakit oleh <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-medical-600 to-teal-600\">Mahasiswa Kedokteran NJMU</span>",
+                heroDescription: "Sedang kurang sehat di rantau? Dapatkan pendampingan dari mahasiswa Nanjing Medical University (NJMU) yang ramah, memahami proses medis, membantu navigasi rumah sakit di Tiongkok, serta memberikan dukungan sesama mahasiswa.",
+                tag1: "Nanjing Medical University Student Companion",
+                tag2: "Navigasi Sistem Rumah Sakit Tiongkok",
+                tag3: "Pemahaman Medis & Dukungan Teman",
+                heroBtnBook: "Pesan Pendamping (3-7 Hari Lebih Awal)",
+                heroBtnFounder: "Lihat Profil Pendiri",
+                disclaimerHeader: "Batasan Layanan:",
+                disclaimerBody: "CareCompanionNJ menyediakan pendampingan fisik, bantuan antrean, dan penterjemahan komunikasi umum di rumah sakit. Pendamping adalah sesama mahasiswa yang membantu istilah dan alur medis—mereka bukan penerjemah tersumpah/profesional, tidak melakukan diagnosis medis, dan tidak mengurus akun pendaftaran resmi.",
+
+                escrowTitle: "Pembayaran Platform Aman",
+                escrowDesc: "Biaya pemesanan Anda disimpan aman oleh manajer hingga pendampingan selesai.",
+                cardFeat1Title: "Panduan Sistem Rumah Sakit",
+                cardFeat1Desc: "Pendamping membantu memilih & mengarahkan di rumah sakit",
+                badgeMatch: "Rekomendasi Tepat",
+                cardFeat2Title: "Dukungan Pengetahuan Medis",
+                cardFeat2Desc: "Pendamping paham istilah dasar & prosedur medis",
+                badgePeer: "Pendamping Mahasiswa",
+                cardFeat3Title: "Mahasiswa NJMU Pilihan",
+                cardFeat3Desc: "Teman medis yang dipilih langsung karena empati & kepeduliannya",
+                badgeVetted: "Terverifikasi",
+                cardFooterClock: "Pesan 3 hingga 7 hari sebelum jadwal",
+                cardFooterRate: "Mulai ¥80 / Sesi",
+
+                founderTitle: "Pendiri Platform",
+                founderQuoteBadge: "Alasan CareCompanionNJ Didirikan",
+                founderHeading: "Jaringan Dukungan Teman Sebaya Terpercaya dari Mahasiswa NJMU",
+                founderP1: "Sebagai mahasiswa kedokteran di Nanjing Medical University (NJMU), saya melihat langsung betapa bingungnya teman-teman mahasiswa internasional—terutama mahasiswa Indonesia di Nanjing—saat jatuh sakit. Meskipun ada yang sudah bisa berbahasa Mandarin sehari-hari, mengurus pendaftaran, antrean triase, dan pemeriksaan antar lantai tetap sangat melelahkan saat kondisi tubuh sedang tidak fit.",
+                founderP2: "Saya mendirikan CareCompanionNJ untuk memberikan pendampingan yang hangat dan solutif. Semua pendamping adalah teman-teman sejawat mahasiswa kedokteran NJMU pilihan yang memiliki empati tinggi, pemahaman dasar medis, dan familiar dengan alur rumah sakit. Kami mendampingi Anda agar Anda tidak perlu berjuang sendirian di rumah sakit.",
+                trust1Title: "Pendamping Pilihan",
+                trust1Desc: "Mahasiswa kedokteran NJMU yang baik hati dan diuji empatinya langsung oleh pendiri.",
+                trust2Title: "Garansi Pembayaran",
+                trust2Desc: "Pembayaran dikelola aman oleh platform hingga sesi pendampingan tuntas.",
+                trust3Title: "Dukungan Teman Medis",
+                trust3Desc: "Fokus pada navigasi, antrean, dan mempermudah pemahaman prosedur medis.",
+
+                howSub: "Sistem Adil & Terstruktur",
+                howTitle: "Cara Kerja Layanan & Sistem Pendamping",
+                howDesc: "Dirancang untuk kenyamanan pasien dan menyesuaikan jadwal kuliah mahasiswa kedokteran NJMU.",
+                step1Title: "Pesan 3-7 Hari Sebelumnya",
+                step1Desc: "Kirimkan detail kunjungan, lokasi kampus, dan keluhan Anda. Pemesanan awal memberi waktu bagi mahasiswa kedokteran menyesuaikan jadwal perkuliahan.",
+                step2Title: "Pembayaran Platform",
+                step2Desc: "Lakukan pembayaran langsung ke manajer platform. Setelah divalidasi, jadwal akan dimasukkan ke papan penugasan internal NJMU.",
+                step3Title: "Penentuan Pendamping & RS",
+                step3Desc: "Mahasiswa kedokteran NJMU yang disetujui akan mengambil tugas dan menghubungi Anda langsung untuk mengonfirmasi titik temu & rekomendasi RS.",
+                step4Title: "Pendampingan & Pencairan Stipe",
+                step4Desc: "Pendamping menemani Anda dari pendaftaran hingga dokter. Setelah kunjungan selesai, pendamping menerima stipend yang telah disepakati.",
+
+                boardBadge: "Portal Khusus Pendamping",
+                boardTitle: "Papan Jadwal Mahasiswa Kedokteran NJMU (Simulasi)",
+                boardConfidentialNote: "Nominal pembayaran pasien bersifat rahasia & dikelola penuh oleh pendiri",
+                btnApplyEscort: "Daftar Jadi Pendamping NJMU",
+                boardExplanation: "* Catatan: Demi keamanan dan kepedulian yang nyata, hanya mahasiswa kedokteran NJMU pilihan dan terverifikasi yang bisa masuk untuk mengambil jadwal. Nominal tarif pasien disembunyikan dari pendamping untuk menjaga ekosistem tetap sehat.",
+                thId: "ID Jadwal",
+                thCampus: "Area Pasien / Kampus",
+                thSymptoms: "Keluhan / Kebutuhan",
+                thHospital: "Rekomendasi Rumah Sakit",
+                thStatus: "Status",
+                thAction: "Tindakan",
+                statusValidated: "Terbayar & Sah",
+                btnAcceptShift: "Ambil Jadwal",
+
+                calcSub: "Tarif Mahasiswa Transparan",
+                calcTitle: "Kalkulator Estimasi Biaya & Pemesanan",
+                calcDesc: "Pesan setidaknya 3-7 hari sebelumnya. Pembayaran awal diperlukan untuk memvalidasi pencarian pendamping NJMU.",
+                formHeading: "Formulir Pemesanan Pendamping",
+                labelName: "Nama Anda *",
+                labelUni: "Universitas & Kampus *",
+                labelContact: "ID WeChat atau Nomor HP *",
+                labelDate: "Tanggal Kunjungan (3-7 Hari Ke Depan) *",
+                labelHospital: "Pilihan Rumah Sakit Tujuan *",
+                hospitalNote: "Jika belum yakin, pilih \"Biarkan Pendamping NJMU Merekomendasikan\". Pendamping akan menilai gejala & lokasi Anda untuk memilih RS terbaik.",
+                labelDuration: "Durasi Layanan *",
+                durHalf: "Setengah Hari (s/d 3 Jam)",
+                durHalfDesc: "Konsultasi rawat jalan standar",
+                durFull: "Satu Hari Penuh (s/d 6 Jam)",
+                durFullDesc: "Pemeriksaan diagnostik / lab bertahap",
+                labelPickup: "Opsi Penjemputan di Kampus",
+                addonCampusText: "Bertemu di gerbang kampus saya terlebih dahulu (+¥20 uang transpor pendamping)",
+                labelSymptoms: "Jelaskan Gejala atau Alasan Kunjungan *",
+                btnSubmitBooking: "Kirim Pemesanan & Dapatkan Link Pembayaran",
+
+                sumTitle: "Estimasi Biaya Pendamping",
+                sumBadge: "Tarif Mahasiswa",
+                sumFactor: "Faktor Durasi",
+                sumPickup: "Transpor Penjemputan Kampus",
+                escrowRulesHeader: "Aturan Pembayaran & Penampungan",
+                rule1: "Pembayaran awal ke manajer diperlukan untuk memvalidasi pesanan.",
+                rule2: "Pendamping melihat ketersediaan jadwal (nominal tarif pasien tetap tersembunyi).",
+                rule3: "Stipend pendamping dicairkan setelah layanan selesai dikonfirmasi.",
+                wechatPrompt: "Ada pertanyaan sebelum membayar?",
+                btnContactManager: "Hubungi Manajer di WeChat",
+
+                hospSub: "Destinasi Rumah Sakit Utama",
+                hospTitle: "Rumah Sakit yang Sering Dikunjungi Mahasiswa di Nanjing",
+                hospDesc: "Dipilih berdasarkan jarak dari kampus-kampus utama, fasilitas spesialis, dan kefamilieran mahasiswa NJMU.",
+                hosp1Desc: "Pusat medis umum terbesar di Jiangsu. Sangat baik untuk pemeriksaan kompleks, penyakit dalam, dan konsultasi spesialis.",
+                hosp2Desc: "Fasilitas modern di sebelah kampus NJMU Jiangning. Infrastruktur bagus, pendaftaran cepat, dan rawat jalan yang nyaman.",
+                hosp3Desc: "Pusat layanan kesehatan utama untuk mahasiswa di Kawasan Universitas Jiangning. Praktis untuk rawat jalan & tes darah.",
+                hosp4Desc: "Rumah sakit klinis utama afiliasi NJMU. Unggul dalam spesialis pencernaan, THT, dan penyakit dalam.",
+                hosp5Desc: "Berlokasi persis di dekat kampus NJMU Wutai. Rumah sakit spesialis utama untuk infeksi mata, cek mata, dan konsultasi kornea.",
+                hosp6Title: "Rumah Sakit Rekomendasi Pendamping",
+                hosp6Sub: "Rute khusus sesuai gejala",
+                hosp6Desc: "Bingung harus ke mana? Tuliskan gejala Anda dan pendamping NJMU akan mengarahkan ke rumah sakit yang paling sesuai.",
+
+                faqSub: "Pertanyaan Umum",
+                faqTitle: "Pertanyaan yang Sering Diajukan",
+                faq1Q: "Mengapa harus memesan 3 hingga 7 hari sebelumnya?",
+                faq1A: "Semua pendamping kami adalah mahasiswa kedokteran aktif di Nanjing Medical University (NJMU). Pemesanan lebih awal memungkinkan mereka mengatur jadwal di antara jam kuliah dan rotasi klinis agar tidak bentrok.",
+                faq2Q: "Bantuan apa saja yang diberikan pendamping (dan apa batasannya)?",
+                faq2A: "<strong>Termasuk:</strong> Pendampingan fisik di rumah sakit, navigasi antrean/loket, membantu menyampaikan keluhan ke dokter dengan pemahaman istilah medis, serta rekomendasi RS.<br><strong>Tidak termasuk:</strong> Pendamping adalah rekan mahasiswa (bukan penterjemah medis tersumpah). Mereka tidak memberikan vonis medis resmi, tidak melakukan tindakan medis, tidak mengurus akun pendaftaran, dan tidak mengurus klaim asuransi.",
+                faq3Q: "Bagaimana sistem pembayaran dan kerahasiaan tarif?",
+                faq3A: "Anda membayar biaya layanan langsung ke manajer platform untuk memvalidasi pesanan. Biaya yang dibayarkan pasien bersifat rahasia di tangan manajer agar pembagian stipend pendamping berjalan profesional tanpa kendala. Setelah kunjungan tuntas, stipend dicairkan ke pendamping.",
+                faq4Q: "Siapa saja yang bisa menjadi pendamping?",
+                faq4A: "Pendamping bukan pendaftar umum sembarangan. Mereka adalah mahasiswa kedokteran Nanjing Medical University (NJMU) pilihan yang dikenal memiliki rasa empati dan kepedulian tinggi, yang disetujui langsung oleh pendiri.",
+
+                bannerTitle: "Siap Memesan Pendamping atau Punya Pertanyaan?",
+                bannerDesc: "Hubungi langsung manajer kami di WeChat untuk konfirmasi pembayaran dan mengamankan jadwal pendamping mahasiswa NJMU Anda.",
+                btnScanQr: "Pindai Kode QR WeChat",
+
+                footerBio: "Platform pendamping rumah sakit yang dikelola mahasiswa kedokteran NJMU, memberikan panduan ramah, navigasi rumah sakit, dan dukungan sesama mahasiswa di Nanjing.",
+                footerHospHeader: "Rumah Sakit Populer Mahasiswa",
+                footerDisclaimerHeader: "Penafian Platform",
+                footerDisclaimerText: "Pendamping adalah mahasiswa kedokteran NJMU yang bertindak murni sebagai teman pendamping. Mereka tidak memberikan diagnosis medis resmi, tidak mengurus pendaftaran akun resmi, dan tidak mengurus resep obat.",
+
+                modalWechatTitle: "Tambah WeChat Manajer",
+                modalWechatDesc: "Pindai kode QR atau salin ID di bawah ini untuk menyelesaikan pembayaran dan memvalidasi pemesanan.",
+                escortRegTitle: "Daftar Jadi Pendamping Mahasiswa NJMU",
+                escortRegSub: "Hanya mahasiswa kedokteran NJMU terverifikasi & berempati yang dipilih.",
+                escortLabelName: "Nama Lengkap & Jurusan *",
+                escortLabelId: "NIM / Nomor Mahasiswa NJMU *",
+                escortLabelWechat: "ID WeChat & No HP *",
+                escortLabelCampus: "Kampus Utama / Penempatan RS",
+                escortRegNotice: "Pendaftaran diverifikasi secara manual oleh pendiri untuk menjaga keamanan dan empati. Pendamping yang lolos akan menerima akses papan jadwal via WeChat."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Toggle Button Styling
+            const btnEN = document.getElementById('langENBtn');
+            const btnID = document.getElementById('langIDBtn');
+            const btnENMob = document.getElementById('langENBtnMobile');
+            const btnIDMob = document.getElementById('langIDBtnMobile');
+
+            if (lang === 'en') {
+                btnEN.className = "px-2.5 py-1 rounded-md bg-white text-medical-700 shadow-xs transition-all font-bold";
+                btnID.className = "px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all font-medium";
+                if(btnENMob) btnENMob.className = "px-3 py-1 rounded-md bg-white text-medical-700 shadow-xs font-bold";
+                if(btnIDMob) btnIDMob.className = "px-3 py-1 rounded-md text-slate-600 font-medium";
+            } else {
+                btnID.className = "px-2.5 py-1 rounded-md bg-white text-medical-700 shadow-xs transition-all font-bold";
+                btnEN.className = "px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 transition-all font-medium";
+                if(btnIDMob) btnIDMob.className = "px-3 py-1 rounded-md bg-white text-medical-700 shadow-xs font-bold";
+                if(btnENMob) btnENMob.className = "px-3 py-1 rounded-md text-slate-600 font-medium";
+            }
+
+            // Apply translations
+            const langData = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (langData[key]) {
+                    elem.innerHTML = langData[key];
+                }
+            });
+
+            // Re-calculate pricing display if necessary
+            calculateFee();
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Fee Calculation Logic
+        function calculateFee() {
+            const hospitalSelect = document.getElementById('hospitalSelect');
+            const selectedOption = hospitalSelect.options[hospitalSelect.selectedIndex];
+            const baseFee = parseInt(selectedOption.getAttribute('data-fee') || '90');
+            const hospitalName = selectedOption.text.split('/')[0].replace('💡', '').trim();
+
+            // Duration
+            const durationRadios = document.getElementsByName('duration');
+            let durationHours = 3;
+            for (const radio of durationRadios) {
+                if (radio.checked) {
+                    durationHours = parseInt(radio.value);
+                }
+            }
+
+            let durationMultiplier = (durationHours === 6) ? 1.8 : 1.0;
+            let subtotal = baseFee * durationMultiplier;
+
+            // Campus pickup add-on
+            const campusAddon = document.getElementById('addonCampusPick').checked;
+            let campusFee = campusAddon ? 20 : 0;
+
+            let total = Math.round(subtotal + campusFee);
+
+            // Update UI
+            document.getElementById('totalPriceDisplay').innerHTML = `¥${total} <span class="text-xs font-normal text-medical-200">RMB</span>`;
+            document.getElementById('summaryHospitalName').textContent = hospitalName.length > 22 ? hospitalName.substring(0, 22) + '...' : hospitalName;
+            document.getElementById('summaryBaseFee').textContent = `¥${baseFee}`;
+            document.getElementById('summaryDurationText').textContent = (durationHours === 6) ? 'Full-Day (1.8x)' : 'Half-Day (1.0x)';
+            document.getElementById('summaryCampusFee').textContent = `¥${campusFee}`;
+        }
+
+        calculateFee();
+
+        // FAQ Accordion Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // WeChat Copy Logic
+        function copyWeChatID() {
+            const textToCopy = "CareCompanionNJ";
+            const tempInput = document.createElement("input");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast(currentLang === 'id' ? "ID WeChat Disalin!" : "WeChat ID Copied!", currentLang === 'id' ? "Berhasil menyalin 'CareCompanionNJ'." : "Copied 'CareCompanionNJ' to clipboard.");
+        }
+
+        // Modal Controls
+        function openWeChatModal() {
+            document.getElementById('wechatModal').classList.remove('hidden');
+        }
+
+        function closeWeChatModal() {
+            document.getElementById('wechatModal').classList.add('hidden');
+        }
+
+        function openEscortRegisterModal() {
+            document.getElementById('escortRegisterModal').classList.remove('hidden');
+        }
+
+        function closeEscortRegisterModal() {
+            document.getElementById('escortRegisterModal').classList.add('hidden');
+        }
+
+        // Form Submit Handlers
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+            const title = currentLang === 'id' ? "Permintaan Terkirim!" : "Request Submitted!";
+            const msg = currentLang === 'id' ? `Terima kasih, ${name}. Selanjutnya silakan hubungi WeChat 'CareCompanionNJ' untuk konfirmasi.` : `Thank you, ${name}. Next, add WeChat 'CareCompanionNJ' to complete pre-payment.`;
+            showToast(title, msg);
+            openWeChatModal();
+        }
+
+        function handleEscortApply(e) {
+            e.preventDefault();
+            closeEscortRegisterModal();
+            const title = currentLang === 'id' ? "Aplikasi Diterima!" : "Application Submitted!";
+            const msg = currentLang === 'id' ? "Aplikasi Anda sedang ditinjau oleh pendiri. Kami akan menghubungi Anda via WeChat." : "Your application is under review by the founder. We will contact you via WeChat.";
+            showToast(title, msg);
+        }
+
+        // Toast Notification System
+        function showToast(title, message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
