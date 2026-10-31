@@ -78,6 +78,7 @@ async function load() {
     var acts = '';
     if (b.status === 'new') acts = btn('Mark paid', 'ok', 'b', b.id, 'paid') + btn('Cancel', 'no', 'b', b.id, 'cancelled');
     if (b.status === 'paid') acts = btn('Complete', 'ok', 'b', b.id, 'completed') + btn('Cancel', 'no', 'b', b.id, 'cancelled');
+    if (b.status === 'paid' && b.accepted_by) acts += btn('Reassign', '', 'r', b.id, '');
     return '<tr><td><b>' + esc(b.code) + '</b><br><span class="mute">' + esc(new Date(b.created_at).toLocaleString()) + '</span></td>' +
       '<td>' + esc(b.visit_date) + '</td>' +
       '<td>' + esc(b.patient_name) + '<br>' + esc(b.contact) + '<br><span class="mute">' + esc(b.university) + '</span></td>' +
@@ -105,6 +106,13 @@ async function load() {
 document.body.addEventListener('click', async function (e) {
   var b = e.target.closest('button[data-act]'); if (!b) return;
   var to = b.dataset.to;
+  if (b.dataset.act === 'r') {
+    if (!confirm('Send this shift back to the open board? The current companion will no longer see it.')) return;
+    b.disabled = true;
+    var rr = await db.from('bookings').update({ accepted_by: null }).eq('id', Number(b.dataset.id));
+    if (rr.error) alert('Could not reassign: ' + rr.error.message);
+    load(); return;
+  }
   if ((to === 'cancelled' || to === 'rejected') && !confirm('Are you sure?')) return;
   b.disabled = true;
   var table = b.dataset.act === 'b' ? 'bookings' : 'profiles';
