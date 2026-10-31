@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Founder dashboard | ConnectCareNJ</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <a href="index.html">ConnectCareNJ</a><span>Founder dashboard</span>
+  <button id="logoutBtn" class="sm" hidden>Log out</button>
+</header>
+<main>
+  <section id="loginView" class="card narrow" hidden>
+    <form id="loginForm">
+      <label for="aMail">Email</label><input id="aMail" type="email" autocomplete="username" required>
+      <label for="aPw">Password</label><input id="aPw" type="password" autocomplete="current-password" required>
+      <button class="primary" type="submit">Log in</button>
+    </form>
+    <p id="msg" class="msg" role="status"></p>
+  </section>
+
+  <section id="dash" hidden>
+    <div class="card">
+      <h3>Bookings <button id="reloadBtn" class="sm" type="button">Refresh</button></h3>
+      <p id="summary" class="mute"></p>
+      <div class="wrap"><table>
+        <thead><tr><th>Code</th><th>Visit date</th><th>Patient</th><th>Hospital</th><th>Session</th><th>Price</th><th>Symptoms</th><th>Status</th><th>Companion</th><th>Actions</th></tr></thead>
+        <tbody id="bookRows"></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>Companions <span id="pendingCount" class="pill pending" hidden></span></h3>
+      <div class="wrap"><table>
+        <thead><tr><th>Full name</th><th>Chinese name</th><th>Student ID</th><th>Nationality</th><th>WeChat</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="escRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+function show(id) { $('loginView').hidden = id !== 'loginView'; $('dash').hidden = id !== 'dash'; }
+function msg(t, kind) { var m = $('msg'); m.textContent = t || ''; m.className = 'msg ' + (kind || ''); }
+function btn(label, cls, act, id, to) {
+  return '<button class="sm ' + cls + '" data-act="' + act + '" data-id="' + esc(id) + '" data-to="' + to + '">' + label + '</button>';
+}
+
+async function route() {
+  if (!db) { show('loginView'); msg('Not connected to the database yet. Follow SETUP-GUIDE.md.', 'err'); return; }
+  var s = (await db.auth.getSession()).data.session;
+  $('logoutBtn').hidden = !s;
+  if (!s) { show('loginView'); return; }
+  var a = await db.from('admins').select('user_id').eq('user_id', s.user.id).maybeSingle();
+  if (!a.data) { await db.auth.signOut(); $('logoutBtn').hidden = true; show('loginView'); msg('This account is not an admin account.', 'err'); return; }
+  show('dash'); load();
+}
+
+async function load() {
+  var r = await Promise.all([
+    db.from('bookings').select('*').order('created_at', { ascending: false }),
+    db.from('profiles').select('*').order('created_at', { ascending: false })
+  ]);
+  if (r[0].error || r[1].error) { alert('Could not load data. Please refresh the page.'); return; }
+  var bookings = r[0].data, people = r[1].data, names = {};
+  people.forEach(function (p) { names[p.id] = p.full_name; });
+
+  var received = 0;
+  bookings.forEach(function (b) { if (b.status === 'paid' || b.status === 'completed') received += b.price; });
+  $('summary').textContent = 'Total marked as paid: ¥' + received + ' (paid + completed bookings). Prices are visible only on this page.';
+
+  $('bookRows').innerHTML = bookings.map(function (b) {
+    var acts = '';
+    if (b.status === 'new') acts = btn('Mark paid', 'ok', 'b', b.id, 'paid') + btn('Cancel', 'no', 'b', b.id, 'cancelled');
+    if (b.status === 'paid') acts = btn('Complete', 'ok', 'b', b.id, 'completed') + btn('Cancel', 'no', 'b', b.id, 'cancelled');
+    return '<tr><td><b>' + esc(b.code) + '</b><br><span class="mute">' + esc(new Date(b.created_at).toLocaleString()) + '</span></td>' +
+      '<td>' + esc(b.visit_date) + '</td>' +
+      '<td>' + esc(b.patient_name) + '<br>' + esc(b.contact) + '<br><span class="mute">' + esc(b.university) + '</span></td>' +
+      '<td>' + esc(b.hospital) + '</td>' +
+      '<td>' + b.duration_hours + ' hrs' + (b.campus_pickup ? '<br>campus pick-up' : '') + '</td>' +
+      '<td>¥' + esc(b.price) + '</td><td>' + esc(b.symptoms) + '</td>' +
+      '<td><span class="pill ' + esc(b.status) + '">' + esc(b.status) + '</span></td>' +
+      '<td>' + (b.accepted_by ? esc(names[b.accepted_by] || '?') : '-') + '</td><td>' + acts + '</td></tr>';
+  }).join('') || '<tr><td colspan="10" class="mute">No bookings yet.</td></tr>';
+
+  var order = { pending: 0, approved: 1, rejected: 2 };
+  people.sort(function (a, b) { return order[a.status] - order[b.status]; });
+  var pending = people.filter(function (p) { return p.status === 'pending'; }).length;
+  $('pendingCount').hidden = !pending; $('pendingCount').textContent = pending + ' waiting for approval';
+  $('escRows').innerHTML = people.map(function (p) {
+    var acts = '';
+    if (p.status === 'pending') acts = btn('Approve', 'ok', 'p', p.id, 'approved') + btn('Reject', 'no', 'p', p.id, 'rejected');
+    if (p.status === 'approved') acts = btn('Revoke access', 'no', 'p', p.id, 'rejected');
+    if (p.status === 'rejected') acts = btn('Approve', 'ok', 'p', p.id, 'approved');
+    return '<tr><td>' + esc(p.full_name) + '</td><td>' + esc(p.chinese_name) + '</td><td>' + esc(p.student_id) + '</td><td>' + esc(p.nationality) +
+      '</td><td>' + esc(p.wechat) + '</td><td>' + esc(p.email) + '</td><td><span class="pill ' + esc(p.status) + '">' + esc(p.status) + '</span></td><td>' + acts + '</td></tr>';
+  }).join('') || '<tr><td colspan="8" class="mute">No companion applications yet.</td></tr>';
+}
+
+document.body.addEventListener('click', async function (e) {
+  var b = e.target.closest('button[data-act]'); if (!b) return;
+  var to = b.dataset.to;
+  if ((to === 'cancelled' || to === 'rejected') && !confirm('Are you sure?')) return;
+  b.disabled = true;
+  var table = b.dataset.act === 'b' ? 'bookings' : 'profiles';
+  var id = b.dataset.act === 'b' ? Number(b.dataset.id) : b.dataset.id;
+  var r = await db.from(table).update({ status: to }).eq('id', id);
+  if (r.error) alert('Update failed: ' + r.error.message);
+  load();
+});
+
+$('loginForm').onsubmit = async function (e) {
+  e.preventDefault();
+  if (!db) return route();
+  var r = await db.auth.signInWithPassword({ email: $('aMail').value.trim(), password: $('aPw').value });
+  if (r.error) { msg('Email or password is incorrect.', 'err'); return; }
+  $('aPw').value = ''; msg(''); route();
+};
+$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut(); route(); };
+$('reloadBtn').onclick = load;
+route();
+</script>
+</body>
+</html>

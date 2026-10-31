@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Companion portal | ConnectCareNJ</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <a href="index.html">ConnectCareNJ</a><span>Companion portal</span>
+  <button id="logoutBtn" class="sm" hidden>Log out</button>
+</header>
+<main>
+  <section id="authView" class="card narrow" hidden>
+    <div class="tabs">
+      <button id="tabLogin" type="button" class="on">Log in</button>
+      <button id="tabReg" type="button">Register</button>
+    </div>
+    <form id="loginForm">
+      <label for="lSid">Student ID</label><input id="lSid" autocomplete="username" required>
+      <label for="lPw">Password</label><input id="lPw" type="password" autocomplete="current-password" required>
+      <button class="primary" type="submit">Log in</button>
+    </form>
+    <form id="regForm" hidden>
+      <p class="mute">Register once. Afterwards you only need your student ID and password. Your details are visible only to the founder.</p>
+      <label for="rName">Full name</label><input id="rName" autocomplete="name" required>
+      <label for="rCn">Chinese name</label><input id="rCn" required>
+      <label for="rSid">Student ID</label><input id="rSid" autocomplete="username" required>
+      <label for="rNat">Nationality</label><input id="rNat" required>
+      <label for="rWx">WeChat ID</label><input id="rWx" required>
+      <label for="rMail">Email</label><input id="rMail" type="email" autocomplete="email" required>
+      <label for="rPw">Create password (at least 8 characters)</label><input id="rPw" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="primary" type="submit">Submit application</button>
+    </form>
+    <p id="msg" class="msg" role="status"></p>
+  </section>
+
+  <section id="infoView" class="card narrow" hidden>
+    <h3 id="infoTitle"></h3><p id="infoText"></p>
+  </section>
+
+  <section id="boardView" hidden>
+    <div class="card">
+      <h3>Open shifts</h3>
+      <p class="mute">Paid bookings waiting for a companion. The first companion to accept gets the shift. <button id="refreshBtn" class="sm" type="button">Refresh</button></p>
+      <p id="boardMsg" class="msg" role="status"></p>
+      <div id="openList" class="grid"></div>
+    </div>
+    <div class="card">
+      <h3>My shifts</h3>
+      <div id="myList" class="grid"></div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+var VIEWS = ['authView', 'infoView', 'boardView'], timer = null;
+var HOURS = { 3: 'Half-day (up to 3 hrs)', 6: 'Full-day (up to 6 hrs)' };
+
+function show(id) { VIEWS.forEach(function (v) { $(v).hidden = v !== id; }); }
+function msg(t, kind) { var m = $('msg'); m.textContent = t || ''; m.className = 'msg ' + (kind || ''); }
+function tab(reg) {
+  $('loginForm').hidden = reg; $('regForm').hidden = !reg;
+  $('tabLogin').classList.toggle('on', !reg); $('tabReg').classList.toggle('on', reg); msg('');
+}
+function info(title, text) { $('infoTitle').textContent = title; $('infoText').textContent = text; show('infoView'); }
+function validSid(s) { return /^[A-Za-z0-9]{4,20}$/.test(s); }
+
+$('tabLogin').onclick = function () { tab(false); };
+$('tabReg').onclick = function () { tab(true); };
+$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut(); route(); };
+$('refreshBtn').onclick = function () { loadBoard(); };
+
+async function route() {
+  clearInterval(timer);
+  if (!db) { show('authView'); tab(false); msg('The portal is not connected to its database yet. Follow SETUP-GUIDE.md.', 'err'); return; }
+  var s = (await db.auth.getSession()).data.session;
+  $('logoutBtn').hidden = !s;
+  if (!s) { show('authView'); tab(location.hash === '#register'); return; }
+  var r = await db.from('profiles').select('full_name,status').eq('id', s.user.id).maybeSingle();
+  if (r.error || !r.data) {
+    await db.auth.signOut(); $('logoutBtn').hidden = true; show('authView'); tab(false);
+    msg('No companion application was found for this account. Please register first.', 'err'); return;
+  }
+  if (r.data.status === 'approved') { show('boardView'); loadBoard(); timer = setInterval(loadBoard, 30000); return; }
+  if (r.data.status === 'rejected') { info('Application not approved', 'Your application was not approved. Please contact the founder on WeChat.'); return; }
+  info('Application received', 'Thank you, ' + r.data.full_name + '. The founder will review it and contact you on WeChat. After you are approved, log in here with your student ID and password.');
+}
+
+$('loginForm').onsubmit = async function (e) {
+  e.preventDefault();
+  if (!db) return route();
+  var btn = e.submitter; btn.disabled = true;
+  var r = await db.auth.signInWithPassword({ email: pseudoEmail($('lSid').value), password: $('lPw').value });
+  btn.disabled = false;
+  if (r.error) { msg('Student ID or password is incorrect.', 'err'); return; }
+  $('lPw').value = ''; route();
+};
+
+$('regForm').onsubmit = async function (e) {
+  e.preventDefault();
+  if (!db) return route();
+  var sid = $('rSid').value.trim();
+  if (!validSid(sid)) { msg('Student ID must be 4 to 20 letters or numbers, with no spaces.', 'err'); return; }
+  var pw = $('rPw').value;
+  if (pw.length < 8) { msg('Password must be at least 8 characters.', 'err'); return; }
+  var btn = e.submitter; btn.disabled = true; msg('Submitting...');
+  var up = await db.auth.signUp({ email: pseudoEmail(sid), password: pw });
+  if (up.error) {
+    btn.disabled = false;
+    msg(/registered|exists/i.test(up.error.message) ? 'This student ID is already registered. Use Log in.' : 'Registration failed: ' + up.error.message, 'err'); return;
+  }
+  if (!up.data.session) { btn.disabled = false; msg('Setup problem: in Supabase, turn off "Confirm email" (see SETUP-GUIDE.md).', 'err'); return; }
+  var ins = await db.from('profiles').insert({
+    id: up.data.user.id, full_name: $('rName').value.trim(), chinese_name: $('rCn').value.trim(),
+    student_id: sid.toUpperCase(), nationality: $('rNat').value.trim(), wechat: $('rWx').value.trim(), email: $('rMail').value.trim()
+  });
+  btn.disabled = false;
+  if (ins.error) { await db.auth.signOut(); msg(/duplicate|unique/i.test(ins.error.message) ? 'This student ID is already registered.' : 'Could not save your details. Please try again.', 'err'); return; }
+  await db.auth.signOut();
+  $('regForm').reset(); tab(false);
+  msg('Application sent. The founder will contact you on WeChat once you are approved. Then log in with your student ID and password.', 'good');
+};
+
+function shiftCard(s, mine) {
+  return '<div class="card shift"><h4>' + esc(s.hospital) + '</h4>' +
+    '<p><span class="pill">' + esc(s.code) + '</span> <b>' + esc(s.visit_date) + '</b></p>' +
+    '<p>' + esc(HOURS[s.duration_hours] || '') + (s.campus_pickup ? ' · campus pick-up' : '') + '</p>' +
+    '<p class="mute">Patient area: ' + esc(s.university) + '</p><p>' + esc(s.symptoms) + '</p>' +
+    (mine ? '<p><b>' + esc(s.patient_name) + '</b><br>WeChat / phone: ' + esc(s.contact) + '</p>'
+          : '<button class="primary" data-id="' + esc(s.id) + '">Accept shift</button>') + '</div>';
+}
+
+async function loadBoard() {
+  var res = await Promise.all([db.rpc('open_shifts'), db.rpc('my_shifts')]);
+  if (res[0].error || res[1].error) { route(); return; }
+  $('openList').innerHTML = res[0].data.length ? res[0].data.map(function (s) { return shiftCard(s, false); }).join('') : '<p class="mute">No open shifts right now. Check back soon.</p>';
+  $('myList').innerHTML = res[1].data.length ? res[1].data.map(function (s) { return shiftCard(s, true); }).join('') : '<p class="mute">You have not accepted any shifts yet.</p>';
+}
+
+$('openList').onclick = async function (e) {
+  var b = e.target.closest('button[data-id]'); if (!b) return;
+  b.disabled = true;
+  var r = await db.rpc('accept_shift', { p_id: Number(b.dataset.id) });
+  var m = $('boardMsg');
+  if (r.error || !r.data) { m.textContent = 'Sorry, another companion just took this shift.'; m.className = 'msg err'; }
+  else { m.textContent = 'Shift accepted. The patient contact details are now under My shifts. Please message them to confirm the meeting point.'; m.className = 'msg good'; }
+  loadBoard();
+};
+
+route();
+</script>
+</body>
+</html>
