@@ -57,6 +57,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
+<script>window.APP_STORAGE_KEY = 'cc-escort-auth';</script>
 <script src="app.js"></script>
 <script>
 var VIEWS = ['authView', 'infoView', 'boardView'], timer = null;
@@ -73,7 +74,7 @@ function validSid(s) { return /^[A-Za-z0-9]{4,20}$/.test(s); }
 
 $('tabLogin').onclick = function () { tab(false); };
 $('tabReg').onclick = function () { tab(true); };
-$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut(); route(); };
+$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut({ scope: 'local' }); route(); };
 $('refreshBtn').onclick = function () { loadBoard(); };
 
 async function route() {
@@ -83,8 +84,9 @@ async function route() {
   $('logoutBtn').hidden = !s;
   if (!s) { show('authView'); tab(location.hash === '#register'); return; }
   var r = await db.from('profiles').select('full_name,status').eq('id', s.user.id).maybeSingle();
-  if (r.error || !r.data) {
-    await db.auth.signOut(); $('logoutBtn').hidden = true; show('authView'); tab(false);
+  if (r.error) { show('authView'); tab(false); msg('Connection problem. Please reload the page in a moment.', 'err'); return; }
+  if (!r.data) {
+    await db.auth.signOut({ scope: 'local' }); $('logoutBtn').hidden = true; show('authView'); tab(false);
     msg('No companion application was found for this account. Please register first.', 'err'); return;
   }
   if (r.data.status === 'approved') { show('boardView'); loadBoard(); timer = setInterval(loadBoard, 30000); return; }
@@ -121,8 +123,8 @@ $('regForm').onsubmit = async function (e) {
     student_id: sid.toUpperCase(), nationality: $('rNat').value.trim(), wechat: $('rWx').value.trim(), email: $('rMail').value.trim()
   });
   btn.disabled = false;
-  if (ins.error) { await db.auth.signOut(); msg(/duplicate|unique/i.test(ins.error.message) ? 'This student ID is already registered.' : 'Could not save your details. Please try again.', 'err'); return; }
-  await db.auth.signOut();
+  if (ins.error) { await db.auth.signOut({ scope: 'local' }); msg(/duplicate|unique/i.test(ins.error.message) ? 'This student ID is already registered.' : 'Could not save your details. Please try again.', 'err'); return; }
+  await db.auth.signOut({ scope: 'local' });
   $('regForm').reset(); tab(false);
   msg('Application sent. The founder will contact you on WeChat once you are approved. Then log in with your student ID and password.', 'good');
 };
@@ -137,6 +139,8 @@ function shiftCard(s, mine) {
 }
 
 async function loadBoard() {
+  var ses = (await db.auth.getSession()).data.session;
+  if (!ses) { route(); return; }
   var res = await Promise.all([db.rpc('open_shifts'), db.rpc('my_shifts')]);
   if (res[0].error || res[1].error) { route(); return; }
   $('openList').innerHTML = res[0].data.length ? res[0].data.map(function (s) { return shiftCard(s, false); }).join('') : '<p class="mute">No open shifts right now. Check back soon.</p>';
@@ -153,6 +157,7 @@ $('openList').onclick = async function (e) {
   loadBoard();
 };
 
+if (db) db.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_OUT') setTimeout(route, 0); });
 route();
 </script>
 </body>

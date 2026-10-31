@@ -43,6 +43,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
+<script>window.APP_STORAGE_KEY = 'cc-admin-auth';</script>
 <script src="app.js"></script>
 <script>
 function show(id) { $('loginView').hidden = id !== 'loginView'; $('dash').hidden = id !== 'dash'; }
@@ -57,11 +58,14 @@ async function route() {
   $('logoutBtn').hidden = !s;
   if (!s) { show('loginView'); return; }
   var a = await db.from('admins').select('user_id').eq('user_id', s.user.id).maybeSingle();
-  if (!a.data) { await db.auth.signOut(); $('logoutBtn').hidden = true; show('loginView'); msg('This account is not an admin account.', 'err'); return; }
+  if (a.error) { show('loginView'); msg('Connection problem. Please reload the page in a moment.', 'err'); return; }
+  if (!a.data) { await db.auth.signOut({ scope: 'local' }); $('logoutBtn').hidden = true; show('loginView'); msg('This account is not an admin account.', 'err'); return; }
   show('dash'); load();
 }
 
 async function load() {
+  var ses = (await db.auth.getSession()).data.session;
+  if (!ses) { route(); return; }
   var r = await Promise.all([
     db.from('bookings').select('*').order('created_at', { ascending: false }),
     db.from('profiles').select('*').order('created_at', { ascending: false })
@@ -129,8 +133,9 @@ $('loginForm').onsubmit = async function (e) {
   if (r.error) { msg('Email or password is incorrect.', 'err'); return; }
   $('aPw').value = ''; msg(''); route();
 };
-$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut(); route(); };
+$('logoutBtn').onclick = async function () { if (db) await db.auth.signOut({ scope: 'local' }); route(); };
 $('reloadBtn').onclick = load;
+if (db) db.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_OUT') setTimeout(route, 0); });
 route();
 </script>
 </body>
