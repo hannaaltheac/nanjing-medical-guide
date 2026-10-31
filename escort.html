@@ -70,15 +70,21 @@ function tab(reg) {
   $('tabLogin').classList.toggle('on', !reg); $('tabReg').classList.toggle('on', reg); msg('');
 }
 function info(title, text) { $('infoTitle').textContent = title; $('infoText').textContent = text; show('infoView'); }
+var msgTimer = null;
+function boardMsg(t, kind) {
+  var m = $('boardMsg'); clearTimeout(msgTimer);
+  m.textContent = t || ''; m.className = 'msg ' + (kind || '');
+  if (t) msgTimer = setTimeout(function () { m.textContent = ''; }, 8000);
+}
 function validSid(s) { return /^[A-Za-z0-9]{4,20}$/.test(s); }
 
 $('tabLogin').onclick = function () { tab(false); };
 $('tabReg').onclick = function () { tab(true); };
 $('logoutBtn').onclick = async function () { if (db) await db.auth.signOut({ scope: 'local' }); route(); };
-$('refreshBtn').onclick = function () { loadBoard(); };
+$('refreshBtn').onclick = function () { boardMsg(''); loadBoard(); };
 
 async function route() {
-  clearInterval(timer);
+  clearInterval(timer); boardMsg('');
   if (!db) { show('authView'); tab(false); msg('The portal is not connected to its database yet. Follow SETUP-GUIDE.md.', 'err'); return; }
   var s = (await db.auth.getSession()).data.session;
   $('logoutBtn').hidden = !s;
@@ -151,9 +157,8 @@ $('openList').onclick = async function (e) {
   var b = e.target.closest('button[data-id]'); if (!b) return;
   b.disabled = true;
   var r = await db.rpc('accept_shift', { p_id: Number(b.dataset.id) });
-  var m = $('boardMsg');
-  if (r.error || !r.data) { m.textContent = 'Sorry, another companion just took this shift.'; m.className = 'msg err'; }
-  else { m.textContent = 'Shift accepted. The patient contact details are now under My shifts. Please message them to confirm the meeting point.'; m.className = 'msg good'; }
+  if (r.error || !r.data) boardMsg('Sorry, another companion just took this shift.', 'err');
+  else boardMsg('Shift accepted. The patient contact details are now under My shifts. Please message them to confirm the meeting point.', 'good');
   loadBoard();
 };
 
